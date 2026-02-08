@@ -1,0 +1,536 @@
+:root {
+    /* PALETA DE CORES (MODERNA DARK - AZUL NOTURNO) */
+    --bg-color: #0f172a;
+    --bg-gradient: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+
+    --modal-bg: rgba(30, 41, 59, 0.95);
+    --modal-border: #334155;
+
+    /* Cores de Estado */
+    --color-correct: #10b981;
+    --color-present: #f59e0b;
+    --color-absent: #334155;
+
+    --tile-bg-empty: #1e293b;
+    --tile-border: #475569;
+    --text-color: #f8fafc;
+    --key-bg: #334155;
+
+    /* Configuração Geométrica */
+    --tile-size: 52px;
+    --tile-font: 2rem;
+    --gap-size: 6px;
+    --radius: 12px;
+}
+
+/* Modo Alto Contraste */
+body.high-contrast {
+    --color-correct: #f97316;
+    --color-present: #3b82f6;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Nunito', 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+/* --- HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    /* Mantendo alinhamento que baixou os ícones */
+    height: 85px;
+    padding: 0 20px;
+    background: rgba(15, 23, 42, 0.8);
+    /* Um pouco mais opaco para evitar vazamento visual */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 15px;
+    position: relative;
+    z-index: 5000;
+    /* Garante que o Header fique ACIMA do menu escondido */
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.box-btn {
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.box-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.box-btn svg,
+.box-btn span {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.logo {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin: 0;
+    margin-top: 5px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* --- MENU SUPERIOR (CORRIGIDO) --- */
+.top-menu {
+    position: absolute;
+    top: 85px;
+    /* Logo abaixo do header */
+    left: 0;
+    right: 0;
+    background-color: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    height: 60px;
+    z-index: 4000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--modal-border);
+
+    /* Transição suave de opacidade e posição */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Estado Escondido - CORREÇÃO DA BORDA BRANCA */
+.top-menu.hidden {
+    transform: translateY(-20px);
+    /* Move levemente para cima */
+    opacity: 0;
+    /* Torna INVISÍVEL */
+    pointer-events: none;
+    /* Impede cliques fantasmas */
+    z-index: -1;
+    /* Joga para trás de tudo */
+}
+
+.menu-links {
+    display: flex;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 50px;
+}
+
+.menu-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+.menu-links a.active {
+    color: var(--bg-color);
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* --- ÁREA DE JOGO --- */
+#game-area {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.board-container {
+    display: grid;
+    gap: var(--gap-size);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--gap-size);
+}
+
+/* --- TILE --- */
+.tile {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    background-color: var(--tile-bg-empty);
+    border: 2px solid var(--tile-border);
+    border-radius: var(--radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--tile-font);
+    font-weight: 800;
+    text-transform: uppercase;
+    user-select: none;
+    transition: transform 0.15s, border-color 0.15s, background-color 0.3s;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Modificadores de Modo */
+.mode-termo .board-container {
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.mode-dueto {
+    --tile-size: 42px;
+    --tile-font: 1.6rem;
+}
+
+.mode-dueto .board-container {
+    grid-template-rows: repeat(7, 1fr);
+}
+
+.mode-quarteto {
+    --tile-size: 32px;
+    --tile-font: 1.1rem;
+    --gap-size: 4px;
+}
+
+.mode-quarteto .board-container {
+    grid-template-rows: repeat(9, 1fr);
+}
+
+/* --- TECLADO --- */
+#keyboard-container {
+    padding: 10px 8px 30px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.key {
+    background-color: var(--key-bg);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 8px;
+    flex: 1;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.1rem;
+    transition: transform 0.1s, background-color 0.2s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.key:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+.key.wide {
+    flex: 1.5;
+    font-size: 0.9rem;
+}
+
+/* --- MODAIS --- */
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(3px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: var(--modal-bg);
+    border: 1px solid var(--modal-border);
+    border-radius: 20px;
+    padding: 25px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    position: relative;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.modal-header h2,
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Elementos Internos do Modal */
+.example-box {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.example-row {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.tile-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 6px;
+    border: 2px solid var(--tile-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.stat-item span {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn {
+    background: var(--color-correct);
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    width: 100%;
+    color: white;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s;
+}
+
+.action-btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #334155;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked+.slider {
+    background-color: var(--color-correct);
+}
+
+input:checked+.slider:before {
+    transform: translateX(24px);
+}
+
+/* Estados */
+.correct {
+    background-color: var(--color-correct) !important;
+    border-color: var(--color-correct) !important;
+}
+
+.present {
+    background-color: var(--color-present) !important;
+    border-color: var(--color-present) !important;
+}
+
+.absent {
+    background-color: var(--color-absent) !important;
+    border-color: var(--color-absent) !important;
+}
+
+.tile[data-state="active"] {
+    border-color: #cbd5e1;
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(130, 130, 130, 0.5), 4px 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.tile.flip {
+    animation: flip 0.6s ease forwards;
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateX(0);
+    }
+
+    50% {
+        transform: rotateX(90deg);
+    }
+
+    100% {
+        transform: rotateX(0);
+    }
+}
+
+.footer-credits {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.8rem;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .mode-quarteto {
+        flex-wrap: wrap;
+    }
+
+    .mode-quarteto .board-container {
+        width: 48%;
+    }
+
+    .mode-quarteto {
+        --tile-size: 26px;
+        --tile-font: 0.9rem;
+    }
+
+    header {
+        padding: 0 10px;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+}
