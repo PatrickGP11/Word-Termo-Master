@@ -56,7 +56,7 @@ body {
 .main-container {
     width: 100%;
     /* Max-width aumentado para caber o Quarteto lado a lado no Desktop */
-    max-width: 1300px;
+    max-width: 1400px;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -276,9 +276,9 @@ header {
 .mode-quarteto .boards-wrapper {
     grid-template-columns: repeat(4, 1fr);
     /* 4 Colunas */
-    /* AQUI: Gap pequeno no Desktop também, para não separar muito */
-    gap: 10px;
-    max-width: 1250px;
+    /* AQUI: Gap de 20px para separar bem os 4 tabuleiros no PC */
+    gap: 20px;
+    max-width: 1300px;
 }
 
 .mode-quarteto .board-container {
@@ -621,7 +621,7 @@ input:checked+.slider:before {
 }
 
 /* ==========================================================================
-   MEDIA QUERIES - MOBILE (O FIX DO ESPAÇAMENTO)
+   MEDIA QUERIES - MOBILE (CORREÇÃO DOS ESPAÇAMENTOS)
    ========================================================================== */
 @media (max-width: 850px) {
 
@@ -647,7 +647,8 @@ input:checked+.slider:before {
     /* --- MODO DUETO MOBILE: LADO A LADO --- */
     .mode-dueto .boards-wrapper {
         grid-template-columns: 1fr 1fr;
-        gap: 6px;
+        /* AQUI: Aumentei o GAP para dar o espaçamento que você quer */
+        gap: 15px;
     }
 
     .mode-dueto .board-container {
@@ -667,26 +668,24 @@ input:checked+.slider:before {
         border-width: 1px;
     }
 
-    /* --- MODO QUARTETO MOBILE: 2x2 JUNTINHOS --- */
+    /* --- MODO QUARTETO MOBILE: 2x2 --- */
     .mode-quarteto .boards-wrapper {
-        /* Layout 2 colunas, 2 linhas */
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
-        /* Auto para ficarem colados */
 
-        /* AQUI É A CORREÇÃO: Gap mínimo entre os blocos */
-        gap: 4px;
+        /* AQUI ESTÁ A "QUEBRA" QUE VOCÊ PEDIU:
+           column-gap maior separa a esquerda da direita.
+           row-gap separa os de cima dos de baixo. */
+        column-gap: 20px;
+        row-gap: 10px;
 
-        /* Centraliza o bloco todo */
         align-content: center;
         height: 100%;
     }
 
     .mode-quarteto .board-container {
         gap: 2px;
-        /* Gap entre linhas do tabuleiro */
         margin-bottom: 0;
-        /* Remove margem extra */
     }
 
     .mode-quarteto .row {
@@ -694,13 +693,10 @@ input:checked+.slider:before {
     }
 
     .mode-quarteto .tile {
-        /* Altura calculada para caber sem scroll */
         height: 2.1vh;
-
         width: auto;
         aspect-ratio: 1/1;
         font-size: 0.9vh;
-
         border-width: 1px;
         border-radius: 2px;
         box-shadow: none;
