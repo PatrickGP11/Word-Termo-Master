@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Word Termo Master - Edição Ultimate</title>
+    <title>Word Master - Edição Ultimate</title>
     <link rel="shortcut icon" href="assets/icons8-t-16.png" type="image/letraT.png">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
@@ -27,7 +27,6 @@
             <button class="close-modal icon-btn">✕</button>
             <h2>Como Jogar</h2>
             <p>Descubra a palavra oculta. O jogo muda as cores para te guiar.</p>
-
             <div class="example-box">
                 <div class="example-row">
                     <div class="tile-small correct">T</div>
@@ -38,7 +37,6 @@
                 </div>
                 <p><strong>T</strong> está correto!</p>
             </div>
-
             <div class="example-box">
                 <div class="example-row">
                     <div class="tile-small">V</div>
@@ -49,7 +47,6 @@
                 </div>
                 <p><strong>O</strong> existe, mas noutro lugar.</p>
             </div>
-
             <div class="example-box">
                 <div class="example-row">
                     <div class="tile-small">P</div>
@@ -60,8 +57,6 @@
                 </div>
                 <p><strong>G</strong> não existe na palavra.</p>
             </div>
-
-            <p class="footer-note">Uma homenagem aos jogos de palavras clássicos.</p>
         </div>
     </div>
 
@@ -87,22 +82,13 @@
                 <h2>Ajustes</h2>
                 <button class="close-modal icon-btn">✕</button>
             </div>
-
             <div class="setting-item">
-                <div class="setting-text">
-                    <span>Alto Contraste</span>
-                    <small>Cores para daltonismo</small>
-                </div>
-                <label class="switch">
-                    <input type="checkbox" id="toggle-contrast">
-                    <span class="slider round"></span>
-                </label>
+                <div class="setting-text"><span>Alto Contraste</span><small>Cores para daltonismo</small></div>
+                <label class="switch"><input type="checkbox" id="toggle-contrast"><span
+                        class="slider round"></span></label>
             </div>
-
             <div class="modal-footer">
-                <p>Desenvolvido com carinho.</p>
-                <p style="opacity: 0.6; font-size: 0.8rem;">Inspirado nas mecânicas do Termo e Wordle.</p>
-                <div class="version">Versão 3.5</div>
+                <div class="version">Versão 3.7</div>
             </div>
         </div>
     </div>
@@ -110,46 +96,37 @@
     <div class="main-container">
         <header>
             <div class="header-left">
-                <button class="icon-btn box-btn" id="menu-btn" title="Modos de Jogo">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
+                <button class="icon-btn box-btn" id="menu-btn"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                </button>
-                <button class="icon-btn box-btn" id="help-btn" title="Ajuda">
-                    <span>?</span>
-                </button>
+                    </svg></button>
+                <button class="icon-btn box-btn" id="help-btn"><span>?</span></button>
             </div>
-
-            <div class="header-center">
-                <h1 class="logo" id="game-logo">TERMO</h1>
-            </div>
-
+            <h1 class="logo" id="game-logo">TERMO</h1>
             <div class="header-right">
-                <button class="icon-btn box-btn" id="stats-btn" title="Estatísticas">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <button class="icon-btn box-btn" id="stats-btn"><svg width="22" height="22" viewBox="0 0 24 24"
+                        fill="currentColor">
                         <path
                             d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z">
                         </path>
-                    </svg>
-                </button>
-                <button class="icon-btn box-btn" id="settings-btn" title="Configurações">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    </svg></button>
+                <button class="icon-btn box-btn" id="settings-btn"><svg width="22" height="22" viewBox="0 0 24 24"
+                        fill="currentColor">
                         <path
                             d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L3.16 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z">
                         </path>
-                    </svg>
-                </button>
+                    </svg></button>
             </div>
         </header>
 
         <div id="game-area"></div>
         <div id="keyboard-container"></div>
-
-        <div class="footer-credits">Inspirado em Termo</div>
     </div>
+
+    <div class="footer-credits">Inspirado em Termo</div>
 
     <script src="words.js"></script>
     <script src="script.js"></script>

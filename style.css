@@ -1,36 +1,40 @@
 :root {
-    /* PALETA DE CORES (MODERNA DARK) */
+    /* --- CORES & TEMA (MODERNA DARK) --- */
     --bg-color: #0f172a;
     --bg-gradient: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-
     --modal-bg: rgba(30, 41, 59, 0.98);
     --modal-border: #334155;
 
     /* Cores de Estado */
-    --color-correct: #10b981;
-    --color-present: #f59e0b;
-    --color-absent: #334155;
+    --color-correct: #3aa394;
+    /* Verde */
+    --color-present: #d3ad69;
+    /* Amarelo */
+    --color-absent: #312a2c;
+    /* Escuro */
 
     --tile-bg-empty: #1e293b;
-    --tile-border: #475569;
+    --tile-border: #4c4347;
     --text-color: #f8fafc;
-    --key-bg: #334155;
+    --key-bg: #4c4347;
 
-    /* Configurações Base */
-    --tile-size: 52px;
-    --tile-font: 2rem;
-    --gap-size: 6px;
-    --radius: 8px;
+    /* Configurações Visuais */
+    --radius: 6px;
+    --tile-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    --key-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+/* Modo Alto Contraste */
 body.high-contrast {
-    --color-correct: #f97316;
-    --color-present: #3b82f6;
+    --color-correct: #f5793a;
+    /* Laranja */
+    --color-present: #85c0f9;
+    /* Azul */
 }
 
 * {
     box-sizing: border-box;
-    font-family: 'Nunito', 'Segoe UI', sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 body {
@@ -39,7 +43,6 @@ body {
     color: var(--text-color);
     margin: 0;
     height: 100dvh;
-    /* Altura total da tela mobile */
     display: flex;
     justify-content: center;
     overflow: hidden;
@@ -48,77 +51,88 @@ body {
 
 .main-container {
     width: 100%;
-    max-width: 1000px;
-    /* Aumentei um pouco para caber Dueto com folga no PC */
+    /* Aumentei para permitir o Quarteto lado-a-lado no Desktop */
+    max-width: 1300px;
     display: flex;
     flex-direction: column;
     height: 100%;
     position: relative;
+    z-index: 1;
+    /* Garante que fique abaixo do footer se precisar */
 }
 
-/* --- HEADER --- */
+/* ==========================================================================
+   HEADER & NAVEGAÇÃO
+   ========================================================================== */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
-    padding: 0 15px;
+    height: 60px;
+    padding: 0 20px;
+    flex-shrink: 0;
     background: rgba(15, 23, 42, 0.95);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     z-index: 5000;
-    flex-shrink: 0;
 }
 
 .header-left,
 .header-right {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .box-btn {
     border: none;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #cbd5e1;
     cursor: pointer;
+    transition: all 0.2s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.box-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    transform: translateY(-2px);
+}
+
 .box-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
 }
 
 .logo {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 900;
     letter-spacing: 2px;
     text-transform: uppercase;
-    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     margin: 0;
+    color: white;
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
 }
 
-/* --- MENU SUPERIOR --- */
+/* MENU SUPERIOR */
 .top-menu {
     position: absolute;
-    top: 50px;
+    top: 60px;
     left: 0;
     right: 0;
-    background-color: rgba(15, 23, 42, 0.98);
-    height: 50px;
+    background-color: #0f172a;
+    height: 60px;
     z-index: 4000;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid var(--modal-border);
-    transition: all 0.3s ease;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 1;
     pointer-events: auto;
 }
@@ -131,19 +145,19 @@ header {
 }
 
 .menu-links {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 30px;
     display: flex;
     gap: 5px;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 4px;
-    border-radius: 30px;
 }
 
 .menu-links a {
     color: #94a3b8;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 700;
-    padding: 6px 16px;
+    padding: 8px 20px;
     border-radius: 20px;
     text-transform: uppercase;
     transition: all 0.2s;
@@ -152,89 +166,124 @@ header {
 .menu-links a.active {
     color: var(--bg-color);
     background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* --- ÁREA DE JOGO --- */
+/* ==========================================================================
+   ÁREA DE JOGO (GRID SYSTEM AVANÇADO)
+   ========================================================================== */
 #game-area {
     flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Centraliza verticalmente no Desktop */
     padding: 10px;
-    /* Gap padrão para Termo */
-    gap: 20px;
     overflow: hidden;
+    /* Importante para evitar scroll */
 }
 
-/* CORREÇÃO DO DUETO NO DESKTOP: Espaçamento maior */
-#game-area.mode-dueto {
-    gap: 60px;
-    /* Separa bem os dois quadros no PC */
+/* Wrapper que segura os tabuleiros */
+.boards-wrapper {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+    align-content: center;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .board-container {
     display: grid;
-    gap: 4px;
+    gap: 5px;
 }
 
 .row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 4px;
+    gap: 5px;
 }
 
-/* Tile Base */
+/* TILE (QUADRADINHO) PADRÃO DESKTOP */
 .tile {
-    width: var(--tile-size);
-    height: var(--tile-size);
-    background-color: var(--tile-bg-empty);
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
     border: 2px solid var(--tile-border);
     border-radius: var(--radius);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: var(--tile-font);
+    font-size: 1.8rem;
     font-weight: 800;
     text-transform: uppercase;
     user-select: none;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
     transition: transform 0.1s, background-color 0.2s;
+    box-shadow: var(--tile-shadow);
 }
 
-/* Layouts Desktop */
+/* --- REGRAS DE LAYOUT PARA DESKTOP (PC) --- */
+
+/* TERMO: 1 Coluna */
+.mode-termo .boards-wrapper {
+    grid-template-columns: 1fr;
+}
+
 .mode-termo .board-container {
     grid-template-rows: repeat(6, 1fr);
 }
 
-.mode-dueto {
-    --tile-size: 46px;
-    --tile-font: 1.6rem;
+/* DUETO DESKTOP: 2 Colunas (Lado a Lado com espaço) */
+.mode-dueto .boards-wrapper {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    /* Espaço generoso no desktop */
 }
 
 .mode-dueto .board-container {
     grid-template-rows: repeat(7, 1fr);
 }
 
-.mode-quarteto {
-    --tile-size: 34px;
-    --tile-font: 1.2rem;
-    --gap-size: 4px;
+.mode-dueto .tile {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+}
+
+/* QUARTETO DESKTOP: 4 Colunas (EXATAMENTE COMO NA FOTO DO PC) */
+.mode-quarteto .boards-wrapper {
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 Lado a Lado */
+    gap: 15px;
 }
 
 .mode-quarteto .board-container {
     grid-template-rows: repeat(9, 1fr);
 }
 
-/* --- TECLADO --- */
+.mode-quarteto .tile {
+    width: 34px;
+    height: 34px;
+    font-size: 1.2rem;
+    gap: 3px;
+}
+
+.mode-quarteto .row {
+    gap: 3px;
+}
+
+/* Tiles mais juntinhos no quarteto desktop */
+
+/* ==========================================================================
+   TECLADO
+   ========================================================================== */
 #keyboard-container {
-    padding: 2px 4px 8px 4px;
-    /* Padding ajustado */
+    padding: 10px 10px 35px 10px;
+    /* Espaço embaixo pro footer */
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     width: 100%;
-    max-width: 650px;
+    max-width: 680px;
     margin: 0 auto;
     flex-shrink: 0;
     background: var(--bg-color);
@@ -244,7 +293,7 @@ header {
 .keyboard-row {
     display: flex;
     justify-content: center;
-    gap: 4px;
+    gap: 5px;
 }
 
 .key {
@@ -253,14 +302,15 @@ header {
     font-weight: 700;
     border-radius: 6px;
     flex: 1;
-    height: 48px;
+    height: 52px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     user-select: none;
-    font-size: 1rem;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+    font-size: 1.1rem;
+    box-shadow: var(--key-shadow);
+    transition: transform 0.1s;
 }
 
 .key:active {
@@ -273,15 +323,12 @@ header {
     font-size: 0.8rem;
 }
 
-/* Footer */
-.footer-credits {
-    display: none;
-}
-
-/* --- MODAIS --- */
+/* ==========================================================================
+   MODAIS & UI ELEMENTS (Tudo recuperado)
+   ========================================================================== */
 .modal-overlay {
     background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(3px);
     position: fixed;
     top: 0;
     left: 0;
@@ -301,64 +348,138 @@ header {
     background: var(--modal-bg);
     border: 1px solid var(--modal-border);
     border-radius: 16px;
-    padding: 20px;
+    padding: 25px;
     width: 90%;
-    max-width: 400px;
+    max-width: 450px;
     color: #fff;
     position: relative;
     max-height: 85vh;
     overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 10px;
 }
 
 .close-modal {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 20px;
+    right: 20px;
     background: none;
     border: none;
-    color: #94a3b8;
-    font-size: 1.2rem;
+    color: #cbd5e1;
+    font-size: 1.5rem;
     cursor: pointer;
 }
 
+/* Exemplos de Ajuda */
 .example-row {
     display: flex;
     gap: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .tile-small {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 4px;
     border: 2px solid var(--tile-border);
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 800;
+    font-size: 1.2rem;
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .stat-item span {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: bold;
-    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-item label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* Gráfico */
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.chart-bar {
+    background-color: #4c4347;
+    height: 22px;
+    min-width: 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 8px;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+.chart-bar.highlight {
+    background-color: var(--color-correct);
+}
+
+.action-btn {
+    background: var(--color-correct);
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    width: 100%;
+    color: white;
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* Toggle Switch */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 46px;
-    height: 24px;
+    width: 50px;
+    height: 26px;
 }
 
 .switch input {
@@ -382,8 +503,8 @@ header {
 .slider:before {
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
+    height: 20px;
+    width: 20px;
     left: 3px;
     bottom: 3px;
     background-color: white;
@@ -396,10 +517,10 @@ input:checked+.slider {
 }
 
 input:checked+.slider:before {
-    transform: translateX(22px);
+    transform: translateX(24px);
 }
 
-/* Estados */
+/* Animações e Cores */
 .correct {
     background-color: var(--color-correct) !important;
     border-color: var(--color-correct) !important;
@@ -416,10 +537,10 @@ input:checked+.slider:before {
 }
 
 .tile[data-state="active"] {
-    border-color: #cbd5e1;
-    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #94a3b8;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     transform: scale(1.02);
-    z-index: 10;
 }
 
 .tile.flip {
@@ -440,99 +561,150 @@ input:checked+.slider:before {
     }
 }
 
-/* -----------------------------------------------------------
-   MOBILE RULES (Corrigindo o Quarteto)
------------------------------------------------------------ */
-@media (max-width: 600px) {
-    .main-container {
-        max-width: 100%;
+/* Toast */
+#toast-container {
+    position: fixed;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6000;
+    width: max-content;
+}
+
+.toast {
+    background: white;
+    color: black;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* =========================================================
+   RODAPÉ / CRÉDITOS (CORREÇÃO DO ALINHAMENTO)
+   ========================================================= */
+.footer-credits {
+    position: fixed;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    /* Ocupa a largura total da tela */
+    text-align: center;
+    /* Centraliza o texto */
+    font-size: 0.8rem;
+    color: #64748b;
+    z-index: 6000;
+    /* Fica acima de tudo */
+    pointer-events: none;
+    /* Permite clicar através dele */
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVO (QUARTETO 2x2 SEM SCROLL)
+   ========================================================================== */
+@media (max-width: 800px) {
+    header {
+        height: 50px;
+        padding: 0 10px;
     }
 
-    /* 1. DUETO MOBILE (Lado a Lado) */
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .boards-wrapper {
+        gap: 5px;
+        width: 100%;
+        padding: 0 5px;
+    }
+
+    /* DUETO MOBILE: LADO A LADO (Igual foto) */
+    .mode-dueto .boards-wrapper {
+        grid-template-columns: 1fr 1fr;
+        /* 2 colunas */
+        gap: 6px;
+        /* Gap fino */
+        align-content: center;
+        width: 100%;
+    }
+
     .mode-dueto .board-container {
-        gap: 2px;
+        gap: 3px;
     }
 
     .mode-dueto .row {
-        gap: 2px;
+        gap: 3px;
     }
 
-    #game-area.mode-dueto {
-        gap: 5px;
-    }
-
-    /* Gap pequeno no mobile */
     .mode-dueto .tile {
-        width: 11vw;
-        height: 11vw;
-        max-width: 42px;
-        max-height: 42px;
-        font-size: 1.4rem;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1/1;
+        /* Quadrado perfeito */
+        font-size: 1.3rem;
         border-width: 1px;
     }
 
-    /* 2. QUARTETO MOBILE (Sem Scroll - Otimizado) */
-    .mode-quarteto {
-        /* Permite quebra 2x2 */
-        flex-wrap: wrap;
+    /* QUARTETO MOBILE: 2x2 (Igual foto) - SEM SCROLL */
+    .mode-quarteto .boards-wrapper {
+        grid-template-columns: 1fr 1fr;
+        /* 2 colunas */
+        grid-template-rows: 1fr 1fr;
+        /* 2 linhas */
+        gap: 4px;
+        /* Espaço mínimo entre os 4 blocos */
+        height: 100%;
+        /* Força a ocupar a altura disponível */
         align-content: center;
-        /* Centraliza o bloco todo verticalmente */
-        padding: 0 4px;
-        gap: 0 !important;
-        /* Remove gaps do flex */
+        /* Centraliza tudo verticalmente */
     }
 
     .mode-quarteto .board-container {
-        width: 49%;
-        /* 2 por linha */
-        margin-bottom: 2px;
-        gap: 1px;
-        /* Gap entre linhas mínimo */
+        gap: 2px;
     }
 
     .mode-quarteto .row {
-        gap: 1px;
+        gap: 2px;
     }
 
     .mode-quarteto .tile {
-        /* CÁLCULO MÁGICO PARA CABER: 
-           (100vh - Header - Teclado) / 20 linhas ~= 2.8vh
-           Vou usar 2.8vh para garantir. */
-        height: 2.8vh;
+        /* CÁLCULO PARA NÃO TER SCROLL:
+           2.3vh garante que as 18 linhas caibam na tela */
+        height: 2.3vh;
         width: auto;
         aspect-ratio: 1/1;
-        /* Garante quadrado */
-        font-size: 1.4vh;
+        font-size: 1vh;
         border-width: 1px;
-        border-radius: 3px;
+        border-radius: 2px;
         box-shadow: none;
-        /* Leveza visual */
+        /* Mais limpo no mobile */
     }
 
-    /* Teclado Mobile */
+    /* TECLADO MOBILE */
+    #keyboard-container {
+        padding: 2px 5px 25px 5px;
+        gap: 4px;
+    }
+
     .key {
         height: 6.5vh;
-        max-height: 48px;
         font-size: 0.9rem;
-    }
-
-    #keyboard-container {
-        padding-bottom: 2px;
+        border-radius: 4px;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
     }
 }
 
-/* Telas MUITO pequenas */
-@media (max-height: 650px) {
+/* Telas muito pequenas (iPhone SE antigo) */
+@media (max-height: 660px) {
     .mode-quarteto .tile {
-        height: 2.5vh;
-        font-size: 1.2vh;
+        height: 2.1vh;
     }
 
     .key {
         height: 6vh;
-    }
-
-    header {
-        height: 45px;
     }
 }
