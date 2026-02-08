@@ -197,6 +197,7 @@ header {
 .boards-wrapper {
     display: grid;
     gap: 20px;
+    /* Gap padrão */
     justify-content: center;
     align-content: center;
     width: 100%;
@@ -273,10 +274,11 @@ header {
 
 /* MODO QUARTETO (4 Tabuleiros Lado a Lado - DESKTOP) */
 .mode-quarteto .boards-wrapper {
-    /* AQUI ESTÁ O AJUSTE DESKTOP QUE VOCÊ PEDIU (FOTO 2) */
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    max-width: 1200px;
+    /* 4 Colunas */
+    /* AQUI: Gap pequeno no Desktop também, para não separar muito */
+    gap: 10px;
+    max-width: 1250px;
 }
 
 .mode-quarteto .board-container {
@@ -288,7 +290,6 @@ header {
     height: 34px;
     font-size: 1.2rem;
     gap: 3px;
-    /* Tiles mais juntos */
 }
 
 .mode-quarteto .row {
@@ -620,7 +621,7 @@ input:checked+.slider:before {
 }
 
 /* ==========================================================================
-   MEDIA QUERIES - AJUSTE FINO PARA MOBILE (A CORREÇÃO FINAL)
+   MEDIA QUERIES - MOBILE (O FIX DO ESPAÇAMENTO)
    ========================================================================== */
 @media (max-width: 850px) {
 
@@ -638,18 +639,14 @@ input:checked+.slider:before {
         padding: 0;
     }
 
-    /* Wrapper ocupa largura total e centraliza */
     .boards-wrapper {
-        gap: 5px;
         width: 100%;
         padding: 0 2px;
-        align-content: center;
     }
 
     /* --- MODO DUETO MOBILE: LADO A LADO --- */
     .mode-dueto .boards-wrapper {
         grid-template-columns: 1fr 1fr;
-        /* 2 colunas forçadas */
         gap: 6px;
     }
 
@@ -664,60 +661,54 @@ input:checked+.slider:before {
 
     .mode-dueto .tile {
         width: auto;
-        /* Largura automática */
         height: auto;
         aspect-ratio: 1/1;
-        /* Garante quadrado */
         font-size: 1.2rem;
         border-width: 1px;
     }
 
-    /* --- MODO QUARTETO MOBILE: 2x2 SEM SCROLL --- */
+    /* --- MODO QUARTETO MOBILE: 2x2 JUNTINHOS --- */
     .mode-quarteto .boards-wrapper {
-        /* AQUI É A MÁGICA DO 2x2 NA TELA */
+        /* Layout 2 colunas, 2 linhas */
         grid-template-columns: 1fr 1fr;
-        /* 2 colunas */
-        grid-template-rows: 1fr 1fr;
-        /* 2 linhas */
-        gap: 4px;
-        /* Gap mínimo */
+        grid-template-rows: auto auto;
+        /* Auto para ficarem colados */
 
-        /* Força o wrapper a caber na altura disponível */
-        height: 100%;
+        /* AQUI É A CORREÇÃO: Gap mínimo entre os blocos */
+        gap: 4px;
+
+        /* Centraliza o bloco todo */
         align-content: center;
-        /* Centraliza verticalmente */
+        height: 100%;
     }
 
     .mode-quarteto .board-container {
-        gap: 1px;
-        /* Gap mínimo entre linhas */
-        margin-bottom: 2px;
+        gap: 2px;
+        /* Gap entre linhas do tabuleiro */
+        margin-bottom: 0;
+        /* Remove margem extra */
     }
 
     .mode-quarteto .row {
-        gap: 1px;
+        gap: 2px;
     }
 
     .mode-quarteto .tile {
-        /* Altura calculada: ~2vh por linha x 18 linhas = ~36vh de jogo */
-        /* Isso deixa ~60vh livre para header e teclado */
+        /* Altura calculada para caber sem scroll */
         height: 2.1vh;
 
         width: auto;
         aspect-ratio: 1/1;
         font-size: 0.9vh;
-        /* Fonte proporcional à altura */
 
         border-width: 1px;
         border-radius: 2px;
         box-shadow: none;
-        /* Remove sombra para limpar o visual */
     }
 
     /* Teclado Mobile */
     #keyboard-container {
         padding: 2px 4px 25px 4px;
-        /* Padding ajustado */
         gap: 3px;
     }
 
