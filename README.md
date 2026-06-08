@@ -93,7 +93,7 @@ Menu Superior: Alterne entre os modos Solo, Dueto e Quarteto.
 
 ## 🤝 Créditos e Inspiração
 
-Este projeto foi desenvolvido por Patrick Gonçalves como um exercício de domínio de HTML5, CSS3 e Javascript Moderno.
+Este projeto foi desenvolvido por IA e orientação por Patrick Gonçalves como um exercício de domínio de HTML5, CSS3 e Javascript Moderno.
 
 *Inspiração Original: Wordle (Josh Wardle / NYT).*
 
